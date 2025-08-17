@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>I’m Sorry 🐾</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", cursive, sans-serif;
+      text-align: center;
+      background: linear-gradient(135deg, #ffe6f0, #ffccdd);
+      overflow: hidden;
+    }
+    #container {
+      position: relative;
+      max-width: 650px;
+      margin: 60px auto;
+      background: rgba(255,255,255,0.9);
+      border-radius: 25px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      backdrop-filter: blur(6px);
+    }
+    img {
+      max-width: 100%;
+      height: 260px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    p {
+      font-size: 20px;
+      margin-bottom: 25px;
+      color: #444;
+      font-weight: 500;
+    }
+    button {
+      font-size: 18px;
+      padding: 12px 28px;
+      margin: 10px;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    #yesBtn {
+      background: #ff6fa9;
+      color: white;
+      box-shadow: 0 5px 15px rgba(255, 111, 169, 0.4);
+    }
+    #yesBtn:hover {
+      background: #ff4f91;
+      transform: scale(1.1);
+    }
+    #noBtn {
+      background: #bbb;
+      color: white;
+    }
+    #noBtn:hover {
+      background: #999;
+      transform: scale(0.9);
+    }
+    #yesBtn.big {
+      font-size: 30px;
+      padding: 20px 50px;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); box-shadow: 0 0 10px #ff6fa9; }
+      50% { transform: scale(1.08); box-shadow: 0 0 25px #ff6fa9; }
+      100% { transform: scale(1); box-shadow: 0 0 10px #ff6fa9; }
+    }
+
+    /* 🌸 Falling lily petals */
+    .petal {
+      position: fixed;
+      top: -50px;
+      width: 40px;
+      height: 40px;
+      background: url('https://i.ibb.co/fNGyKvy/lily.png') no-repeat center/contain;
+      animation: fall linear infinite;
+      opacity: 0.9;
+      pointer-events: none;
+      z-index: -1;
+    }
+    @keyframes fall {
+      0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <img id="gif" src="https://raw.githubusercontent.com/bunny0207/cat-gif-/main/sadhamstergirl.gif" alt="Gif">
+    <p id="message">I don’t know where have gone wrong but I did a mistake by avoiding u, I messed up... will u forgive me?</p>
+    <div id="buttons">
+      <button id="yesBtn">Yes</button>
+      <button id="noBtn">No</button>
+    </div>
+  </div>
+
+  <script>
+    let noCount = 0;
+
+    const gif = document.getElementById("gif");
+    const message = document.getElementById("message");
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+
+    // GIFs
+    const noGifs = [
+      "https://raw.githubusercontent.com/bunny0207/cat-gif-/main/goma-sad.gif",
+      "https://raw.githubusercontent.com/bunny0207/cat-gif-/main/goma-cat-jdonyu.gif",
+      "https://raw.githubusercontent.com/bunny0207/cat-gif-/main/peach-cat-and-goma-cat-playing-guitar.gif"
+    ];
+    const noMessages = [
+      "Enduku No ani click chesav",
+      "Malli no ani click chesava 🥲",
+      "Nenu avoid chesina na tape im sorry 😿"
+    ];
+    const yesGif = "https://raw.githubusercontent.com/bunny0207/cat-gif-/main/happy-happy-happy.gif";
+    const yesMessage = "Hammaya, ippudu mamulga matladu nathoni";
+
+    // Preload GIFs
+    const allGifs = [gif.src, ...noGifs, yesGif];
+    allGifs.forEach(src => { const img = new Image(); img.src = src; });
+
+    yesBtn.addEventListener("click", () => {
+      gif.src = yesGif;
+      message.textContent = yesMessage;
+      yesBtn.style.display = "none";
+      noBtn.style.display = "none";
+    });
+
+    noBtn.addEventListener("click", () => {
+      if (noCount < 3) {
+        gif.src = noGifs[noCount];
+        message.textContent = noMessages[noCount];
+        noCount++;
+        noBtn.style.transform = `scale(${1 - noCount*0.2})`;
+        if (noCount === 3) {
+          noBtn.style.display = "none";
+          yesBtn.classList.add("big");
+        }
+      }
+    });
+
+    // 🌸 Generate lily petals
+    function createPetal() {
+      const petal = document.createElement("div");
+      petal.className = "petal";
+      petal.style.left = Math.random() * window.innerWidth + "px";
+      petal.style.animationDuration = (5 + Math.random() * 5) + "s";
+      petal.style.opacity = Math.random();
+      document.body.appendChild(petal);
+      setTimeout(() => petal.remove(), 10000);
+    }
+    setInterval(createPetal, 600);
+  </script>
+</body>
+</html>
+
+
